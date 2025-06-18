@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+  />
+  <meta 
+    http-equiv="X-Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'"
+  />
+  <link rel="shortcut icon" href="clock.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main-div">
+       <h1 id="pomodoro-txt">pomodoro timer</h1>
+      <div class="timer-div">
+        <div class="head-timer">
+          <p id="session-time-toggle">session</p>
+          <p id="break-time-toggle">break</p>
+        </div>
+        <span id="timer">45:00</span>
+      </div>
+      <div class="btn-div">
+        <button class="btn" id="start-btn">start</button>
+        <button class="btn" id="reset-btn">reset</button>
+      </div>
+      <div class="session-div">
+        <div class="txt-back">
+          <p id="session-txt">your sessions: </p>
+        </div>
+        <div class="reset-back">
+          <img id="reset-session-svg" src="images/reset-svg.svg">
+        </div>
+      </div>
+    </div>
+   
+    <div class="carousel-div">
+      <div>
+        <img class="theme-img" src="images/harry-potter-theme.jpg" alt="">
+        <div class="text-content-div">
+          <p class="text-select">click for select</p>
+          <p class="text-theme">Harry Potter</p>
+        </div>
+      </div>
+      <div>
+        <img class="theme-img" src="images/death-note-theme3.jpg" alt="">
+        <div class="text-content-div">
+          <p class="text-select">click for select</p>
+          <p class="text-theme">Death Note</p>
+        </div>
+      </div>
+      <div>
+        <img class="theme-img" src="images/classroom-theme.jpg" alt="">
+        <div class="text-content-div">
+          <p class="text-select">click for select</p>
+          <p class="text-theme">Class Room</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="script.js"> </script>
+</html>

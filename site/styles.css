@@ -1,0 +1,182 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  background-image: url("images/sky-bg.jpeg");  
+  /* background-image: url("images/fall-autumn-red-season.jpg");   */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  margin-top: 50px;
+} 
+.main-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.timer-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /*вертикаль*/
+  justify-content: space-around;  /*горизонталь*/
+  height: 200px;
+  width: 400px;
+  margin: 50px;
+  background: rgba(17, 1, 27, 0.4);
+  border-radius: 20px;
+}
+.head-timer{
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  padding: 20px;
+}
+.head-timer p{
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 18px;
+  cursor: pointer;
+}
+.head-timer p:hover{
+  color: white;
+}
+#pomodoro-txt{
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 54px;
+  text-transform: capitalize;
+}
+#timer{
+  font-size: 72px;
+  font-weight: 500;
+  color: rgb(203, 203, 203);
+  padding-bottom: 40px;
+}
+.btn{
+  width: 110px;
+  height: 50px;
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(0, 0, 0, 0.5);
+  border: solid 3px black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn:hover{
+  transform: scale(1.05);
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+} 
+.session-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+.txt-back{
+  background: rgba(0, 0, 0, 0.7);
+  min-width: 175px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#session-txt{
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 24px;
+  text-transform: capitalize;
+}
+.reset-back{
+  display: flex;
+  background: rgba(255, 255, 255, 0.55);
+  margin: 10px;
+  padding: 5px;
+  border-radius: 20px;
+}
+.reset-back:hover{
+  background: rgba(255, 255, 255, 0.75);
+}
+#reset-session-svg{
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+
+/* carousel */
+.carousel-div{
+  display: flex;
+  width: 360px;
+  height: 500px;
+  justify-content: center;
+  margin-left: 50px ;
+}
+.carousel-div div{
+  flex-grow: 0;
+  flex-shrink: 0; 
+  flex-basis: 120px;
+  text-align: center;
+  color: white;
+  align-content: center;
+  margin: 2px;
+  transition: 0.7s ease-in-out;
+  cursor: pointer;
+  position: relative;
+
+}
+.carousel-div div:hover{
+  flex-basis:180px;
+}
+
+.theme-img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  opacity: 0.8;
+  transition: .5s;
+
+}
+.theme-img:hover{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  opacity: 1;
+}
+.text-content-div{
+  display: flex;
+  height: 50%;
+  width: 100%;
+  position: absolute;
+  top: -60%;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.text-select{
+  opacity: 0;
+  transition: 1s;
+}
+.theme-img:hover + .text-content-div .text-select{
+  opacity: 1;
+}
+
+.text-theme{
+  opacity: 0;
+  transition: 1s ease-in-out;
+  transform: translateY(30px);
+}
+.theme-img:hover + .text-content-div .text-theme{
+  opacity: 1;
+  transform: translateY(0);
+}
