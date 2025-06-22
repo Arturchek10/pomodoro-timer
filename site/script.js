@@ -23,11 +23,14 @@ let sessionCounter = 0;
 let endAudioSession = new Audio("audio/");
 endAudioSession.volume = 0.1;
 let endAudioBreak = new Audio("audio/time-is-up-sound.wav");
-endAudioBreak.volume = 0.05
-// let deathNoteTheme = new Audio("audio/death-note-theme.m4a");
-// deathNoteTheme.volume = 0.05
-let harryPotterTheme = new Audio("/site/audio/4-Hours-Harry-Potter-ASMR.m4a");
-harryPotterTheme.volume = 0.05
+endAudioBreak.volume = 0.05;
+let deathNoteThemeAudio = new Audio("/site/audio/Death-Note-OST.m4a");
+deathNoteThemeAudio.volume = 0.25;
+let harryPotterThemeAudio = new Audio("/site/audio/4-Hours-Harry-Potter-ASMR.m4a");
+harryPotterThemeAudio.volume = 0.65;
+harryPotterThemeAudio.currentTime = 1;
+let classRoomThemeAudio = new Audio("/site/audio/Study-With-Me-in-Class.m4a");
+classRoomThemeAudio.volume = 0.45;
 
 function myTimer() {
   // из полного времени вычитаем текущее время то есть большее на 1 секунду так как вызов раз в секунду
@@ -59,8 +62,8 @@ function myTimer() {
     sessionCounter++;
     sessionElement.innerHTML = sessionContent + sessionCounter;
   }
-  if (remainingTime <= 0 && mode === 'break'){
-    endAudioSession.play()
+  if (remainingTime <= 0 && mode === "break") {
+    endAudioSession.play();
   }
 }
 
@@ -124,42 +127,79 @@ resetSessionElement.addEventListener("click", resetSession);
 breakToggleElement.addEventListener("click", breakToggle);
 sessionToggleElement.addEventListener("click", sessionToggle);
 
-
 // logic of playing theme music when we clicked on image
 
-const hpThemeElement = document.getElementById('hp-theme')
-const dtThemeElement = document.getElementById('dn-theme')
-const crThemeElement = document.getElementById('cr-theme')
+const hpThemeElement = document.getElementById("hp-theme");
+const dtThemeElement = document.getElementById("dn-theme");
+const crThemeElement = document.getElementById("cr-theme");
 
-let activeThemeName = null 
+let activeThemeName = null;
+let activeAudio = null;
 
-function hpThemeActive(){
-  activeTheme = 'Harry Potter'
+function activateAudio(theme) {
+  if (activeAudio) {
+    activeAudio.pause();
+    activeAudio.currentTime = 0;
+  }
+  if (theme == "Harry Potter") {
+    harryPotterThemeAudio.play();
+    activeAudio = harryPotterThemeAudio;
+  } else if (theme == "Death Note") {
+    deathNoteThemeAudio.play();
+    activeAudio = deathNoteThemeAudio;
+  } else if (theme == "Class Room") {
+    classRoomThemeAudio.play();
+    activeAudio = classRoomThemeAudio;
+  }
 }
-function dtThemeActive(){
-  activeTheme = 'Death Note'
-}
-function crThemeActive(){
-  activeTheme = 'Class Room'
-}
 
-
-const themes = document.querySelectorAll('.carousel-div > div')
+let activeThemeElement = null;
+const themes = document.querySelectorAll(".carousel-div > div");
 themes.forEach((theme) => {
-  const img = theme.querySelector('.theme-img');
-  const clickText = theme.querySelector('.text-select')
-  const selectText = theme.querySelector('.select-hp')
+  const img = theme.querySelector(".theme-img");
+  const clickText = theme.querySelector(".text-select");
+  const selectText = theme.querySelector(".select-hp");
 
-  function activeTheme(){
-    clickText.style.opacity = 0;
-    selectText.classList.add('active')
-    console.log('checkThemeFunc active');
+  function activateTheme() {
+    console.log(activeThemeElement);
+    // если нажимаем на новую тему а ранее была выбрана другая
+    if (activeThemeElement && activeThemeElement !== theme) {
+      const oldClickText = activeThemeElement.querySelector(".text-select"); //удаляем стили у старой темы, потому что
+      const oldSelectText = activeThemeElement.querySelector(".select-hp"); // состояние activeThemeElement еще не поменялось на новую тему
+      oldClickText.classList.remove("deactive");
+      oldSelectText.classList.remove("active");
+    }
+    // если выбрана та же самая тема
+    if (activeThemeElement === theme) {
+      clickText.classList.remove("deactive");
+      selectText.classList.remove("active");
+      activeThemeElement = null;
+      // если нажата уже выбранная тема выключаем любую музыку
+      if (activeAudio) {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+        activeAudio = null;
+      }
+      return;
+    }
+
+    clickText.classList.add("deactive");
+    selectText.classList.add("active");
+    activeThemeElement = theme; // сохраняем тему на которую кликнули после всех проверок
+
+    console.log("activeThemeElement: " + activeThemeElement.id);
+    // обновляем имя темы
+    if (theme.id === "hp-theme") {
+      activeThemeName = "Harry Potter";
+      activateAudio(activeThemeName);
+    } else if (theme.id === "dn-theme") {
+      activeThemeName = "Death Note";
+      activateAudio(activeThemeName);
+    } else if (theme.id === "cr-theme") {
+      activeThemeName = "Class Room";
+      activateAudio(activeThemeName);
+    }
   }
 
-  img.addEventListener('click', activeTheme)
-})
-
-
-hpThemeElement.addEventListener('click', hpThemeActive)
-dtThemeElement.addEventListener('click', dtThemeActive)
-crThemeElement.addEventListener('click', crThemeActive)
+  img.addEventListener("click", activateTheme);
+});

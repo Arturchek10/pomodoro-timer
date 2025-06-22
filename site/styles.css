@@ -163,11 +163,14 @@ body{
   pointer-events: none;
 }
 .text-select{
-  opacity: 0;
+  opacity: 0 ;
   transition: 0.8s;
-}
+}      
 .theme-img:hover + .text-content-div .text-select{
   opacity: 1;
+}
+.theme-img:hover + .text-content-div .text-select.deactive{
+  opacity: 0 !important; 
 }
 
 
