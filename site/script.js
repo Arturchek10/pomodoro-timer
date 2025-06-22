@@ -24,9 +24,9 @@ let endAudioSession = new Audio("audio/");
 endAudioSession.volume = 0.1;
 let endAudioBreak = new Audio("audio/time-is-up-sound.wav");
 endAudioBreak.volume = 0.05
-let deathNoteTheme = new Audio("audio/death-note-theme.m4a");
-deathNoteTheme.volume = 0.05
-let harryPotterTheme = new Audio("/audio/harry-potter-theme.m4a");
+// let deathNoteTheme = new Audio("audio/death-note-theme.m4a");
+// deathNoteTheme.volume = 0.05
+let harryPotterTheme = new Audio("/site/audio/4-Hours-Harry-Potter-ASMR.m4a");
 harryPotterTheme.volume = 0.05
 
 function myTimer() {
@@ -123,3 +123,43 @@ btnResetElement.addEventListener("click", resetTimer);
 resetSessionElement.addEventListener("click", resetSession);
 breakToggleElement.addEventListener("click", breakToggle);
 sessionToggleElement.addEventListener("click", sessionToggle);
+
+
+// logic of playing theme music when we clicked on image
+
+const hpThemeElement = document.getElementById('hp-theme')
+const dtThemeElement = document.getElementById('dn-theme')
+const crThemeElement = document.getElementById('cr-theme')
+
+let activeThemeName = null 
+
+function hpThemeActive(){
+  activeTheme = 'Harry Potter'
+}
+function dtThemeActive(){
+  activeTheme = 'Death Note'
+}
+function crThemeActive(){
+  activeTheme = 'Class Room'
+}
+
+
+const themes = document.querySelectorAll('.carousel-div > div')
+themes.forEach((theme) => {
+  const img = theme.querySelector('.theme-img');
+  const clickText = theme.querySelector('.text-select')
+  const selectText = theme.querySelector('.select-hp')
+
+  function activeTheme(){
+    clickText.style.opacity = 0;
+    selectText.classList.add('active')
+    console.log('checkThemeFunc active');
+  }
+
+  img.addEventListener('click', activeTheme)
+})
+
+
+hpThemeElement.addEventListener('click', hpThemeActive)
+dtThemeElement.addEventListener('click', dtThemeActive)
+crThemeElement.addEventListener('click', crThemeActive)
