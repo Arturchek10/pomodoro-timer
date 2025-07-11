@@ -2,9 +2,10 @@ const timeElement = document.getElementById("timer");
 const btnStartElement = document.getElementById("start-btn");
 const btnResetElement = document.getElementById("reset-btn");
 const sessionElement = document.getElementById("session-txt");
+const breakCounterElement = document.getElementById("break-txt");
+const breakCounterContent = breakCounterElement.innerHTML;
 const sessionContent = sessionElement.innerHTML;
 const resetSessionElement = document.getElementById("reset-session-svg");
-sessionElement.innerHTML = sessionContent + 0;
 
 const bodyElement = document.body;
 // добавляем элементы для переключения режимов session/break
@@ -14,22 +15,59 @@ const breakToggleElement = document.getElementById("break-time-toggle");
 let timerInterval = null;
 let totalSessionMilliSeconds = 45 * 60 * 1000; // время нашего таймера в мс
 let totalBreakMilliSeconds = 15 * 60 * 1000;
+
+function startsSessionContentTimer() {
+  let minutes = Math.floor(totalSessionMilliSeconds / 1000 / 60);
+  let seconds = (totalSessionMilliSeconds / 1000) % 60;
+
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+
+  timeElement.innerHTML = `${minutes}:${seconds}`;
+}
+// рендерим на странице изначальные значения таймеров в зависимости от данных в totalSessionMilliSeconds\totalBreakMilliSeconds
+function startsBreakContentTimer() {
+  let minutes = Math.floor(totalBreakMilliSeconds / 1000 / 60);
+  let seconds = Math.floor((totalBreakMilliSeconds / 1000) % 60);
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+  timeElement.innerHTML = `${minutes}:${seconds}`;
+}
 //считаем когда таймер должен закончится. Date.now() возвращается время с 1970год в мс поэтому прибавляем наши миллисекунды
 let endTime = null;
 let mode = "session";
-let sessionCounter = 0;
+
+if (mode === "session") {
+  startsSessionContentTimer();
+} else {
+  startsBreakContentTimer();
+}
+
+// сохраняем в переменную sessionCounter значение из sessionStorage если еще нет данных возвращаем 0
+let sessionCounter = Number(sessionStorage.getItem("sessionCounter")) || 0;
+let breakCounter = Number(sessionStorage.getItem("breakCounter")) || 0;
+sessionElement.innerHTML = sessionContent + sessionCounter;
+breakCounterElement.innerHTML = breakCounterContent + breakCounter;
 
 // audio
-let endAudioSession = new Audio("audio/");
-endAudioSession.volume = 0.1;
+let endAudioSession = new Audio("audio/time-is-up-sound.wav");
+endAudioSession.volume = 0.2;
 let endAudioBreak = new Audio("audio/time-is-up-sound.wav");
-endAudioBreak.volume = 0.05;
-let deathNoteThemeAudio = new Audio("/site/audio/Death-Note-OST.m4a");
+endAudioBreak.volume = 0.2;
+let deathNoteThemeAudio = new Audio("audio/Death-Note-OST.m4a");
 deathNoteThemeAudio.volume = 0.25;
-let harryPotterThemeAudio = new Audio("/site/audio/4-Hours-Harry-Potter-ASMR.m4a");
+let harryPotterThemeAudio = new Audio("audio/1-Hours-Harry-Potter-ASMR.m4a");
 harryPotterThemeAudio.volume = 0.65;
 harryPotterThemeAudio.currentTime = 1;
-let classRoomThemeAudio = new Audio("/site/audio/Study-With-Me-in-Class.m4a");
+let classRoomThemeAudio = new Audio("audio/Study-With-Me-in-Class.m4a");
 classRoomThemeAudio.volume = 0.45;
 
 function myTimer() {
@@ -51,19 +89,20 @@ function myTimer() {
   }
 
   if (remainingTime <= 0) {
-    // // endAudioSession.play();
-    // setTimeout(() => {
-    //   endAudioSession.pause();
-    //   endAudioSession.currentTime = 0;
-    // }, 10000);
     resetTimer();
     remainingTime = 0;
     clearInterval(timerInterval);
-    sessionCounter++;
-    sessionElement.innerHTML = sessionContent + sessionCounter;
   }
   if (remainingTime <= 0 && mode === "break") {
+    endAudioBreak.play();
+    breakCounter++;
+    sessionStorage.setItem("breakCounter", breakCounter); // сохраняем значение в breakCounter
+    breakCounterElement.innerHTML = breakCounterContent + breakCounter;
+  } else if (remainingTime <= 0 && mode === "session") {
     endAudioSession.play();
+    sessionCounter++;
+    sessionStorage.setItem("sessionCounter", sessionCounter); // сохраняем значение в sessionStorage
+    sessionElement.innerHTML = sessionContent + sessionCounter;
   }
 }
 
@@ -78,12 +117,11 @@ function sessionToggle() {
 
 function checkToggle() {
   if (mode === "session") {
-    timeElement.innerHTML = "45:00";
-    bodyElement.style["background-image"] = 'url("images/sky-bg.jpeg")';
+    bodyElement.classList.remove("break");
+    bodyElement.classList.add("session");
   } else if (mode === "break") {
-    timeElement.innerHTML = "15:00";
-    bodyElement.style["background-image"] =
-      'url("images/fall-autumn-red-season.jpg")';
+    bodyElement.classList.remove("session");
+    bodyElement.classList.add("break");
   }
   resetTimer();
 }
@@ -106,10 +144,10 @@ function startTimer() {
 function resetTimer() {
   if (mode === "session") {
     endTime = Date.now() + totalSessionMilliSeconds; // обновляем время предположительного заканчивания таймера
-    timeElement.innerHTML = "45:00";
+    startsSessionContentTimer();
   } else if (mode === "break") {
     endTime = Date.now() + totalBreakMilliSeconds; // обновляем время предположительного заканчивания таймера
-    timeElement.innerHTML = "15:00";
+    startsBreakContentTimer();
   }
 
   clearInterval(timerInterval);
@@ -118,7 +156,13 @@ function resetTimer() {
 
 function resetSession() {
   sessionCounter = 0;
-  sessionElement.innerHTML = sessionContent + sessionCounter;
+  breakCounter = 0;
+  sessionStorage.setItem("breakCounter", breakCounter);
+  sessionStorage.setItem("sessionCounter", sessionCounter);
+  sessionElement.innerHTML =
+    sessionContent + sessionStorage.getItem("sessionCounter");
+  breakCounterElement.innerHTML =
+    breakCounterContent + sessionStorage.getItem("breakCounter");
 }
 
 btnStartElement.addEventListener("click", startTimer);
@@ -135,21 +179,24 @@ const crThemeElement = document.getElementById("cr-theme");
 
 let activeThemeName = null;
 let activeAudio = null;
-
 function activateAudio(theme) {
   if (activeAudio) {
     activeAudio.pause();
     activeAudio.currentTime = 0;
+    activeAudio.volume = volumeVal
   }
   if (theme == "Harry Potter") {
     harryPotterThemeAudio.play();
     activeAudio = harryPotterThemeAudio;
+    activeAudio.volume = volumeVal
   } else if (theme == "Death Note") {
     deathNoteThemeAudio.play();
     activeAudio = deathNoteThemeAudio;
+    activeAudio.volume = volumeVal
   } else if (theme == "Class Room") {
     classRoomThemeAudio.play();
     activeAudio = classRoomThemeAudio;
+    activeAudio.volume = volumeVal
   }
 }
 
@@ -161,7 +208,6 @@ themes.forEach((theme) => {
   const selectText = theme.querySelector(".select-hp");
 
   function activateTheme() {
-    console.log(activeThemeElement);
     // если нажимаем на новую тему а ранее была выбрана другая
     if (activeThemeElement && activeThemeElement !== theme) {
       const oldClickText = activeThemeElement.querySelector(".text-select"); //удаляем стили у старой темы, потому что
@@ -187,7 +233,6 @@ themes.forEach((theme) => {
     selectText.classList.add("active");
     activeThemeElement = theme; // сохраняем тему на которую кликнули после всех проверок
 
-    console.log("activeThemeElement: " + activeThemeElement.id);
     // обновляем имя темы
     if (theme.id === "hp-theme") {
       activeThemeName = "Harry Potter";
@@ -203,3 +248,40 @@ themes.forEach((theme) => {
 
   img.addEventListener("click", activateTheme);
 });
+
+
+
+const volumeValueElement = document.getElementById('volumeValue')
+const plusBtnElement = document.getElementById('plusBtn')
+const minusBtnElement = document.getElementById('minusBtn')
+let volumeVal = 0.5
+volumeValueElement.innerHTML = volumeVal
+
+function updateVolumeDisplay(volume){
+  volumeVal = Number(volume.toFixed(2))
+  volumeValueElement.innerHTML = volumeVal
+  if (activeAudio){
+    activeAudio.volume = volumeVal
+  }
+}
+function increaseVolume(){
+  if (volumeVal < 1){
+    if(volumeVal < 0.1){
+      updateVolumeDisplay(volumeVal + 0.01)
+    } else {
+      updateVolumeDisplay(volumeVal + 0.1)
+    }
+  }
+}
+function decreaseVolume(){
+  if(volumeVal > 0.01){
+    if(volumeVal <= 0.1){
+      updateVolumeDisplay(volumeVal - 0.01)
+    } else {
+      updateVolumeDisplay(volumeVal - 0.1)
+    }
+  }
+}
+
+plusBtnElement.addEventListener("click", increaseVolume)
+minusBtnElement.addEventListener("click", decreaseVolume)

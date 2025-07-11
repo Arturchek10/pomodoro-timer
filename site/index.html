@@ -3,14 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-  />
-  <meta 
-    http-equiv="X-Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'"
-  />
   <link rel="shortcut icon" href="clock.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
   <title>Document</title>
@@ -24,16 +16,22 @@
           <p id="session-time-toggle">session</p>
           <p id="break-time-toggle">break</p>
         </div>
-        <span id="timer">45:00</span>
+        <span id="timer"></span>
       </div>
       <div class="btn-div">
         <button class="btn" id="start-btn">start</button>
         <button class="btn" id="reset-btn">reset</button>
       </div>
       <div class="session-div">
-        <div class="txt-back">
-          <p id="session-txt">your sessions: </p>
+        <div style="display: flex; flex-direction: column;">
+          <div class="txt-back">
+            <p id="session-txt">your sessions: </p>
+          </div>
+          <div class="txt-back">
+            <p id="break-txt">your breaks: </p>
+          </div>
         </div>
+        
         <div class="reset-back">
           <img id="reset-session-svg" src="images/reset-svg.svg">
         </div>
@@ -66,6 +64,17 @@
         </div>
       </div>
     </div>
+    <!-- /////////////////////////////////////////////////// -->
+    <div class="volume">
+      <div class="btn-back">
+        <button id="plusBtn">+</button>
+      </div>
+      <p id="volumeValue"></p>
+      <div class="btn-back">
+        <button id="minusBtn">-</button>
+      </div>
+    </div>
+      <!-- /////////////////////////////////////////////////// -->
 
     <!-- <div class="audio-player">
 

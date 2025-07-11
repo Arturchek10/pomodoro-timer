@@ -6,11 +6,19 @@
 
 body{
   background-image: url("images/sky-bg.jpeg");  
-  /* background-image: url("images/fall-autumn-red-season.jpg");   */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
+  transition: 1.5s;
+}
+body.session{
+  background-image: url("images/sky-bg.jpeg");
+  transition: 1.5s;
+}
+body.break{
+  background-image: url("images/fall-autumn-red-season.jpg");
+  transition: 1.5s;
 }
 .wrapper{
   display: flex;
@@ -82,18 +90,18 @@ body{
   align-items: center;
   margin: 20px;
 }
+
 .txt-back{
   background: rgba(0, 0, 0, 0.7);
   min-width: 175px;
   padding: 15px;
   border-radius: 10px;
-}
-
-#session-txt{
+  margin: 5px;
   color: rgba(255, 255, 255, 0.95);
   font-size: 24px;
   text-transform: capitalize;
 }
+
 .reset-back{
   display: flex;
   background: rgba(255, 255, 255, 0.55);
@@ -199,4 +207,46 @@ body{
 .theme-img:hover + .text-content-div .text-theme{
   opacity: 1;
   transform: translateY(0);
+}
+
+
+/* volume bar */
+#hp-theme{
+  position: relative;
+}
+.volume{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  justify-content: space-around;
+  transform: translate(275px, 270px);
+}
+.btn-back{
+  background-color: rgba(37, 17, 113, 0.7);
+  width: 40px;
+  height: 30px;
+  border-radius: 10px;
+  border: solid 0.5px rgb(24, 23, 44);
+}
+.btn-back:hover{
+  background-color: rgba(37, 17, 113, 1);
+  transform: scale(1.05);
+}
+.volume button{
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  text-align: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 21px;
+  color: rgb(216, 215, 220);
+}
+#volumeValue{
+  font-size: 21px;
+  opacity: 0.9;
+  color: white;
 }
