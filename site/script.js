@@ -69,6 +69,8 @@ harryPotterThemeAudio.volume = 0.65;
 harryPotterThemeAudio.currentTime = 1;
 let classRoomThemeAudio = new Audio("audio/Study-With-Me-in-Class.m4a");
 classRoomThemeAudio.volume = 0.45;
+let strangerThingsAudio = new Audio("audio/Stranger-Things-Kids-Ambient-Soundscape-1-Hours.m4a");
+strangerThingsAudio.volume = 0.35;
 
 function myTimer() {
   // из полного времени вычитаем текущее время то есть большее на 1 секунду так как вызов раз в секунду
@@ -197,6 +199,10 @@ function activateAudio(theme) {
     classRoomThemeAudio.play();
     activeAudio = classRoomThemeAudio;
     activeAudio.volume = volumeVal
+  } else if (theme == "Stranger Things") {
+    strangerThingsAudio.play();
+    activeAudio = strangerThingsAudio;
+    activeAudio.volume = volumeVal
   }
 }
 
@@ -242,6 +248,9 @@ themes.forEach((theme) => {
       activateAudio(activeThemeName);
     } else if (theme.id === "cr-theme") {
       activeThemeName = "Class Room";
+      activateAudio(activeThemeName);
+    } else if (theme.id === "st-theme"){
+      activeThemeName = "Stranger Things";
       activateAudio(activeThemeName);
     }
   }

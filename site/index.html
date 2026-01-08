@@ -1,85 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="clock.png" type="image/png">
-  <link rel="stylesheet" href="styles.css">
-  <title>Document</title>
-</head>
-<body>
-  <div class="wrapper">
-    <div class="main-div">
-       <h1 id="pomodoro-txt">pomodoro timer</h1>
-      <div class="timer-div">
-        <div class="head-timer">
-          <p id="session-time-toggle">session</p>
-          <p id="break-time-toggle">break</p>
-        </div>
-        <span id="timer"></span>
-      </div>
-      <div class="btn-div">
-        <button class="btn" id="start-btn">start</button>
-        <button class="btn" id="reset-btn">reset</button>
-      </div>
-      <div class="session-div">
-        <div style="display: flex; flex-direction: column;">
-          <div class="txt-back">
-            <p id="session-txt">your sessions: </p>
-          </div>
-          <div class="txt-back">
-            <p id="break-txt">your breaks: </p>
-          </div>
-        </div>
-        
-        <div class="reset-back">
-          <img id="reset-session-svg" src="images/reset-svg.svg">
-        </div>
-      </div>
-    </div>
-   
-    <div class="carousel-div">
-      <div id="hp-theme">
-        <img class="theme-img"  src="images/harry-potter-theme.jpg" alt="">
-        <div class="text-content-div">
-          <p class="text-select">click for select</p>
-          <p class="select-hp">select</p>
-          <p class="text-theme">Harry Potter</p>
-        </div>
-      </div>
-      <div id="dn-theme">
-        <img class="theme-img" src="images/death-note-theme3.jpg" alt="">
-        <div class="text-content-div">
-          <p class="text-select">click for select</p>
-          <p class="select-hp">select</p>
-          <p class="text-theme">Death Note</p>
-        </div>
-      </div>
-      <div id="cr-theme">
-        <img class="theme-img" src="images/classroom-theme.jpg" alt="">
-        <div class="text-content-div">
-          <p class="text-select">click for select</p>
-          <p class="select-hp">select</p>
-          <p class="text-theme">Class Room</p>
-        </div>
-      </div>
-    </div>
-    <!-- /////////////////////////////////////////////////// -->
-    <div class="volume">
-      <div class="btn-back">
-        <button id="plusBtn">+</button>
-      </div>
-      <p id="volumeValue"></p>
-      <div class="btn-back">
-        <button id="minusBtn">-</button>
-      </div>
-    </div>
-      <!-- /////////////////////////////////////////////////// -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="clock.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <video
+      id="video"
+      class="video-wallpaper"
+      autoplay
+      muted
+      loop
+    >
+      <source src="video/stranger-things-wallpaper+.mp4" type="video/mp4" />
+    </video>
 
-    <!-- <div class="audio-player">
+    <div class="wrapper">
+      <div class="main-div">
+        <h1 id="pomodoro-txt">pomodoro timer</h1>
+        <div class="timer-div">
+          <div class="head-timer">
+            <p id="session-time-toggle">session</p>
+            <p id="break-time-toggle">break</p>
+          </div>
+          <span id="timer"></span>
+        </div>
+        <div class="btn-div">
+          <button class="btn" id="start-btn">start</button>
+          <button class="btn" id="reset-btn">reset</button>
+        </div>
+        <div class="session-div">
+          <div style="display: flex; flex-direction: column">
+            <div class="txt-back">
+              <p id="session-txt">your sessions:</p>
+            </div>
+            <div class="txt-back">
+              <p id="break-txt">your breaks:</p>
+            </div>
+          </div>
 
-    </div> -->
-  </div>
-</body>
-<script src="script.js"> </script>
+          <div class="reset-back">
+            <img id="reset-session-svg" src="images/reset-svg.svg" />
+          </div>
+        </div>
+      </div>
+      <div class="theme-module">
+        <div class="carousel-div">
+          <div id="hp-theme">
+            <img class="theme-img" src="images/harry-potter-theme.jpg" alt="" />
+            <div class="text-content-div">
+              <p class="text-select">click for select</p>
+              <p class="select-hp">select</p>
+              <p class="text-theme">Harry Potter</p>
+            </div>
+          </div>
+          <div id="dn-theme">
+            <img class="theme-img" src="images/death-note-theme3.jpg" alt="" />
+            <div class="text-content-div">
+              <p class="text-select">click for select</p>
+              <p class="select-hp">select</p>
+              <p class="text-theme">Death Note</p>
+            </div>
+          </div>
+          <div id="cr-theme">
+            <img class="theme-img" src="images/classroom-theme.jpg" alt="" />
+            <div class="text-content-div">
+              <p class="text-select">click for select</p>
+              <p class="select-hp">select</p>
+              <p class="text-theme">Class Room</p>
+            </div>
+          </div>
+          <div id="st-theme">
+            <img
+              class="theme-img"
+              src="images/stranger-things-theme.jpg"
+              alt=""
+            />
+            <div class="text-content-div">
+              <p class="text-select">click for select</p>
+              <p class="select-hp">select</p>
+              <p class="text-theme">Stranger Things</p>
+            </div>
+          </div>
+          <!-- /////////////////////////////////////////////////// -->
+        </div>
+        <div class="volume">
+          <div class="btn-back">
+            <button id="plusBtn">+</button>
+          </div>
+          <p id="volumeValue"></p>
+          <div class="btn-back">
+            <button id="minusBtn">-</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
 </html>
