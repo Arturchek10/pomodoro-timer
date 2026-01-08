@@ -45,3 +45,7 @@ break mode
 
 ```bash
 git clone https://github.com/Arturchek10/my-pomodoro-timer.git
+переход в директорию
+cd my-pomodoro-timer 
+npm install
+npm run dev
