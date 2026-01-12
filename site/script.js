@@ -59,6 +59,8 @@ const sessionToggleElement = document.getElementById("session-time-toggle");
 const breakToggleElement = document.getElementById("break-time-toggle");
 
 let timerInterval = null;
+let pausedRemainingSeconds = null;
+
 let totalSessionMilliSeconds = 45 * 60 * 1000; // время нашего таймера в мс
 let totalBreakMilliSeconds = 15 * 60 * 1000;
 
@@ -178,16 +180,23 @@ function startTimer() {
   if (timerInterval !== null) {
     return;
   }
-  if (mode === "session") {
-    endTime = Date.now() + totalSessionMilliSeconds;
-  }
-  if (mode === "break") {
-    endTime = Date.now() + totalBreakMilliSeconds;
+
+  if (pausedRemainingSeconds !== null) {
+    endTime = Date.now() + pausedRemainingSeconds * 1000;
+    pausedRemainingSeconds = null;
+  } else {
+    if (mode === "session") {
+      endTime = Date.now() + totalSessionMilliSeconds;
+    }
+    if (mode === "break") {
+      endTime = Date.now() + totalBreakMilliSeconds;
+    }
   }
 
   myTimer();
   timerInterval = setInterval(myTimer, 1000);
 }
+
 
 function resetTimer() {
   if (mode === "session") {
@@ -197,6 +206,18 @@ function resetTimer() {
     endTime = Date.now() + totalBreakMilliSeconds; // обновляем время предположительного заканчивания таймера
     startsBreakContentTimer();
   }
+
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function stopTimer() {
+  if (timerInterval === null) {
+    return; // таймер и так не запущен
+  }
+
+  // считаем, сколько секунд осталось
+  pausedRemainingSeconds = Math.round((endTime - Date.now()) / 1000);
 
   clearInterval(timerInterval);
   timerInterval = null;
@@ -214,7 +235,7 @@ function resetSession() {
 }
 
 btnStartElement.addEventListener("click", startTimer);
-btnResetElement.addEventListener("click", resetTimer);
+btnResetElement.addEventListener("click", stopTimer);
 resetSessionElement.addEventListener("click", resetSession);
 breakToggleElement.addEventListener("click", breakToggle);
 sessionToggleElement.addEventListener("click", sessionToggle);
