@@ -12,7 +12,7 @@ const resetSessionElement = document.getElementById("reset-session-svg");
 
 let currentVideo = document.getElementById("bg1");
 let nextVideo = document.getElementById("bg2");
-currentVideo.src = "video/Classroom-wallpaper+.mp4";
+currentVideo.src = "video/classroom-wallpaper.mp4";
 let isChanging = false;
 
 // пробная функция смены видео
@@ -298,19 +298,19 @@ themes.forEach((theme) => {
     if (theme.id === "hp-theme") {
       activeThemeName = "Harry Potter";
       activateAudio(activeThemeName);
-      changeWallpaperVideo("video/Harry-Potter-wallpaper+.mp4");
+      changeWallpaperVideo("video/harry-potter-wallpaper.mp4");
     } else if (theme.id === "dn-theme") {
       activeThemeName = "Death Note";
       activateAudio(activeThemeName);
-      changeWallpaperVideo("video/Death-Note-wallpaper+.mp4");
+      changeWallpaperVideo("video/death-note-wallpaper.mp4");
     } else if (theme.id === "cr-theme") {
       activeThemeName = "Class Room";
       activateAudio(activeThemeName);
-      changeWallpaperVideo("video/Classroom-wallpaper+.mp4");
+      changeWallpaperVideo("video/classroom-wallpaper.mp4");
     } else if (theme.id === "st-theme"){
       activeThemeName = "Stranger Things";
       activateAudio(activeThemeName);
-      changeWallpaperVideo("video/Stranger-Things-wallpaper+.mp4");
+      changeWallpaperVideo("video/stranger-things-wallpaper.mp4");
     }
   }
 
