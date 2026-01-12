@@ -40,19 +40,6 @@ function changeWallpaperVideo(src) {
   );
 }
 
-// function changeVideo(src) {
-//   videoElement.classList.add("fade-out");
-
-//   setTimeout(() => {
-//     videoElement.pause();
-//     sourceElement.src = src;
-//     videoElement.load();
-//     videoElement.play();
-//     videoElement.classList.remove("fade-out");
-//   }, 500);
-// }
-
-
 const bodyElement = document.body;
 // добавляем элементы для переключения режимов session/break
 const sessionToggleElement = document.getElementById("session-time-toggle");
