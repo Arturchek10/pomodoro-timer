@@ -1,3 +1,4 @@
+// new comment
 const timeElement = document.getElementById("timer");
 const btnStartElement = document.getElementById("start-btn");
 const btnResetElement = document.getElementById("reset-btn");
