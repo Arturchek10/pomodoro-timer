@@ -8,17 +8,16 @@
     <title>Document</title>
   </head>
   <body>
-    <video
-      id="video"
-      class="video-wallpaper"
-      autoplay
-      muted
-      loop
-    >
-      <source src="video/stranger-things-wallpaper+.mp4" type="video/mp4" />
-    </video>
+
+    <video id="bg1" class="video-wallpaper active" autoplay muted loop></video>
+    <video id="bg2" class="video-wallpaper" muted loop></video>
 
     <div class="wrapper">
+      <div class="stats-div">
+        <p id="session-txt">sessions: </p>
+        <p id="break-txt">breaks: </p>
+        <p id="reset-session-svg">click for reset stats</p>
+      </div>
       <div class="main-div">
         <h1 id="pomodoro-txt">pomodoro timer</h1>
         <div class="timer-div">
@@ -31,20 +30,6 @@
         <div class="btn-div">
           <button class="btn" id="start-btn">start</button>
           <button class="btn" id="reset-btn">reset</button>
-        </div>
-        <div class="session-div">
-          <div style="display: flex; flex-direction: column">
-            <div class="txt-back">
-              <p id="session-txt">your sessions:</p>
-            </div>
-            <div class="txt-back">
-              <p id="break-txt">your breaks:</p>
-            </div>
-          </div>
-
-          <div class="reset-back">
-            <img id="reset-session-svg" src="images/reset-svg.svg" />
-          </div>
         </div>
       </div>
       <div class="theme-module">
@@ -76,7 +61,7 @@
           <div id="st-theme">
             <img
               class="theme-img"
-              src="images/stranger-things-theme.jpg"
+              src="images/stranger-things-theme2.jpg"
               alt=""
             />
             <div class="text-content-div">

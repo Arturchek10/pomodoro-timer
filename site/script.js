@@ -7,6 +7,52 @@ const breakCounterContent = breakCounterElement.innerHTML;
 const sessionContent = sessionElement.innerHTML;
 const resetSessionElement = document.getElementById("reset-session-svg");
 
+// wallpaper elements
+
+let currentVideo = document.getElementById("bg1");
+let nextVideo = document.getElementById("bg2");
+currentVideo.src = "video/Classroom-wallpaper+.mp4";
+let isChanging = false;
+
+// пробная функция смены видео
+function changeWallpaperVideo(src) {
+  if (isChanging) return;
+  isChanging = true;
+
+  nextVideo.pause();
+  nextVideo.src = src;
+  nextVideo.load();
+
+  nextVideo.addEventListener(
+    "canplay",
+    () => {
+      nextVideo.play();
+
+      currentVideo.classList.remove("active");
+      nextVideo.classList.add("active");
+
+      currentVideo.pause();
+
+      [currentVideo, nextVideo] = [nextVideo, currentVideo];
+      isChanging = false;
+    },
+    { once: true } // 🔑 САМОЕ ВАЖНОЕ
+  );
+}
+
+// function changeVideo(src) {
+//   videoElement.classList.add("fade-out");
+
+//   setTimeout(() => {
+//     videoElement.pause();
+//     sourceElement.src = src;
+//     videoElement.load();
+//     videoElement.play();
+//     videoElement.classList.remove("fade-out");
+//   }, 500);
+// }
+
+
 const bodyElement = document.body;
 // добавляем элементы для переключения режимов session/break
 const sessionToggleElement = document.getElementById("session-time-toggle");
@@ -243,15 +289,19 @@ themes.forEach((theme) => {
     if (theme.id === "hp-theme") {
       activeThemeName = "Harry Potter";
       activateAudio(activeThemeName);
+      changeWallpaperVideo("video/Harry-Potter-wallpaper+.mp4");
     } else if (theme.id === "dn-theme") {
       activeThemeName = "Death Note";
       activateAudio(activeThemeName);
+      changeWallpaperVideo("video/Death-Note-wallpaper+.mp4");
     } else if (theme.id === "cr-theme") {
       activeThemeName = "Class Room";
       activateAudio(activeThemeName);
+      changeWallpaperVideo("video/Classroom-wallpaper+.mp4");
     } else if (theme.id === "st-theme"){
       activeThemeName = "Stranger Things";
       activateAudio(activeThemeName);
+      changeWallpaperVideo("video/Stranger-Things-wallpaper+.mp4");
     }
   }
 
